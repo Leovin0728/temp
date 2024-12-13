@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/CSS/styles.css" rel="stylesheet">
+</head>
+<body>
+    <form class="d-flex flex-column align-items-center justify-content-center vh-100" onsubmit="handleRegistration(event)">
+        <h1 class="text-white mb-4">Register</h1>
+        <div class="mb-3">
+            <input type="text" class="form-control" id="name" placeholder="Name" required>
+        </div>
+        <div class="mb-3">
+            <input type="email" class="form-control" id="email" placeholder="Email" required>
+        </div>
+        <div class="mb-3">
+            <input type="text" class="form-control" id="contactNumber" placeholder="Contact Number" required>
+        </div>
+        <div class="mb-3">
+            <input type="text" class="form-control" id="username" placeholder="Username" required>
+        </div>
+        <div class="mb-3">
+            <input type="password" class="form-control" id="password" placeholder="Password" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+    <script>
+        function handleRegistration(event) {
+          event.preventDefault();
+      
+          const name = document.getElementById("name").value.trim();
+          const email = document.getElementById("email").value.trim();
+          const contactNumber = document.getElementById("contactNumber").value.trim();
+          const username = document.getElementById("username").value.trim();
+          const password = document.getElementById("password").value;
+      
+          if (!name || !email || !contactNumber || !username || !password) {
+            alert("All fields are required!");
+            return;
+          }
+      
+          const registeredUsers = JSON.parse(localStorage.getItem("registeredUsers")) || [];
+      
+          if (registeredUsers.some((user) => user.username === username)) {
+            alert("Username already exists!");
+            return;
+          }
+      
+          const newUser = { name, email, contactNumber, username, password };
+          registeredUsers.push(newUser);
+          localStorage.setItem("registeredUsers", JSON.stringify(registeredUsers));
+      
+          alert("Registration successful! You can now log in.");
+          window.location.href = "/index.html"; // Redirect to login page
+        }
+      </script>
+      
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
