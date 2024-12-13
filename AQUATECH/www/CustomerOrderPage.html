@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en"> 
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AQUATECH</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary text-white p-2">
+      <div class="container-fluid">
+        <a href="Index.html" class="text-white fs-3"><</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="CustomerViewOrderHistory.html" >View Order History</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="text-center">
+      <img src="IMG/upperimg.png" alt="Water Gallon" />
+    </div>
+
+    <div class="container mt-4">
+      <div class="row gy-3">
+    
+        <div class="col-12 d-flex align-items-center bg-white p-3 rounded shadow-sm">
+          <img src="IMG/1galloon.png" alt="One Gallon" class="img-fluid" style="max-width: 80px; max-height: 80px" />
+          <div class="ms-3 flex-grow-1">
+            <h6 class="mb-1">One Gallon</h6>
+            <p class="text-muted mb-1">₱20.00</p>
+          </div>
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#buyModal" onclick="setProductDetails('One Gallon', '₱20.00')">
+            Buy
+          </button>
+        </div>
+
+        <div class="col-12 d-flex align-items-center bg-white p-3 rounded shadow-sm">
+          <img src="IMG/2gallons.png" alt="Two Gallons" class="img-fluid" style="max-width: 80px; max-height: 80px" />
+          <div class="ms-3 flex-grow-1">
+            <h6 class="mb-1">Two Gallons</h6>
+            <p class="text-muted mb-1">₱40.00</p>
+          </div>
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#buyModal" onclick="setProductDetails('Two Gallons', '₱40.00')">
+            Buy
+          </button>
+        </div>
+
+        
+        <div class="col-12 d-flex align-items-center bg-white p-3 rounded shadow-sm">
+          <img src="IMG/3gallons.png" alt="Three Gallons" class="img-fluid" style="max-width: 80px; max-height: 80px" />
+          <div class="ms-3 flex-grow-1">
+            <h6 class="mb-1">Three Gallons</h6>
+            <p class="text-muted mb-1">₱60.00</p>
+          </div>
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#buyModal" onclick="setProductDetails('Three Gallons', '₱60.00')">
+            Buy
+          </button>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="modal fade" id="buyModal" tabindex="-1" aria-labelledby="buyModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="buyModalLabel">Order Details</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="orderForm">
+              <div class="mb-3">
+                <label for="product" class="form-label">Product</label>
+                <input type="text" class="form-control" id="product" readonly />
+              </div>
+              <div class="mb-3">
+                <label for="price" class="form-label">Price</label>
+                <input type="text" class="form-control" id="price" readonly />
+              </div>
+              <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter your name" required />
+              </div>
+              <div class="mb-3">
+                <label for="address" class="form-label">Address</label>
+                <textarea class="form-control" id="address" rows="2" placeholder="Enter your address" required></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="paymentMethod" class="form-label">Payment Method</label>
+                <select class="form-select" id="paymentMethod" required>
+                  <option value="gcash">Gcash</option>
+                  <option value="maya">Maya</option>
+                  <option value="gotyme">GoTyme</option>
+                </select>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" onclick="submitOrder()">Confirm Order</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function setProductDetails(product, price) {
+        document.getElementById("product").value = product;
+        document.getElementById("price").value = price;
+      }
+
+      function submitOrder() {
+        const product = document.getElementById("product").value;
+        const price = document.getElementById("price").value;
+        const name = document.getElementById("name").value;
+        const address = document.getElementById("address").value;
+        const paymentMethod = document.getElementById("paymentMethod").value;
+
+        if (!name || !address || !paymentMethod) {
+          alert("Please fill in all fields!");
+          return;
+        }
+
+        
+        const order = {
+          product: product,
+          price: price,
+          name: name,
+          address: address,
+          paymentMethod: paymentMethod,
+          status: "Pending"
+        };
+
+        
+        const orders = JSON.parse(localStorage.getItem("orders")) || [];
+        orders.push(order);
+        localStorage.setItem("orders", JSON.stringify(orders));
+
+        
+        alert(`Order placed successfully! \nProduct: ${product} \nPrice: ${price} \nName: ${name} \nAddress: ${address} \nPayment Method: ${paymentMethod}`);
+
+        
+        const modal = bootstrap.Modal.getInstance(document.getElementById("buyModal"));
+        modal.hide();
+      }
+    </script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

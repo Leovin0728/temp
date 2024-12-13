@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets"
+        xmlns:cdv="http://cordova.apache.org/ns/1.0"
+        id="com.Mobileapp.aqua"
+        version="1.0.0">
+    <name>Aquatech</name>
+    <description>
+        Online water refill selling.
+    </description>
+    <author email="leovinjozhsalarda@gmail.com">
+        System Developer
+    </author>
+    <content src="Index.html" />
+    <access origin="*" />
+    <allow-navigation href="*" />
+    <allow-intent href="*" />
+    <preference name="Fullscreen" value="true" />
+    <preference name="Orientation" value="portrait" />
+    <preference name="AllowInlineMediaPlayback" value="true" />
+    <preference name="AndroidInsecureFileModeEnabled" value="true" />
+</widget>
